@@ -34,6 +34,7 @@ export default class extends React.Component {
 
   render(){
     const {isLoading} = this.state;
+    // isloading 여부에 따른 화면 보여주기
     console.log("isLoading ::" + isLoading);
     return isLoading ? <Loading /> : null;
   }
