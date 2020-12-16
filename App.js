@@ -1,22 +1,41 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
+import { Alert } from 'react-native';
 import { StyleSheet, Text, View } from 'react-native';
 import Loading from './Screen/Loadng';
 
 import * as Loaction from 'expo-location';
 
 export default class extends React.Component {
+
+  state = {
+    isLoading : true
+  };
+
   getLocation = async () => {
-    const location = await Loaction.getCurrentPositionAsync();
-    console.log(location);
-  }
+    try {
+      console.log("try")
+      // 위치 권한 설정을 물어보는 팝업을 띄어줌
+      const response = await Loaction.requestPermissionsAsync();
+      // getCurrentPositionAsync 안에 존재 하는 'coords' Object 안에서 경도와 위도 데이터를 가져온다.
+      const { coords: {latitude, longitude} } = await Loaction.getCurrentPositionAsync();
+      console.log("latitude ::" + coords.latitude + "longitude :: " + coords.longitude);
+      this.setState({isLoading : false});
+
+    } catch (error) {
+      console.log("catch")
+      Alert.alert("위치 권한이 설정되어 있지 않습니다.", "올바른 위치 권한 설정이 진행되어야 합니다.")
+    }
+  };
 
   componentDidMount() {
     this.getLocation();
   }
 
   render(){
-    return <Loading />;
+    const {isLoading} = this.state;
+    console.log("isLoading ::" + isLoading);
+    return isLoading ? <Loading /> : null;
   }
 }
 
