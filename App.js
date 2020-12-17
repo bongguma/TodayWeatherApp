@@ -5,11 +5,23 @@ import { StyleSheet, Text, View } from 'react-native';
 import Loading from './Screen/Loadng';
 
 import * as Location from 'expo-location';
+import axios from 'axios';
+
+
+const API_KEY = '971646f3a4af7308a4ac102f9e0317f4';
 
 export default class extends React.Component {
   state = {
     isLoading: true
   };
+
+  getWeather = async (latitude, longitude) => {
+    console.log('getWeather');
+    // ${ 변수 }는 template string 으로 자바스크립트 형식이다.
+    const { data } = await axios.get(`api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`);
+    console.log("data :: " + data);
+  }
+
   getLocation = async () => {
     const location = await Location.getCurrentPositionAsync();
     console.log(location);
@@ -21,6 +33,8 @@ export default class extends React.Component {
       const {
         coords: { latitude, longitude }
       } = await Location.getCurrentPositionAsync();
+      console.log('getLocation');
+      this.getWeather(latitude, longitude);
       this.setState({ isLoading: false });
     } catch (error) {
       console.log("catch")
