@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import PropType from 'prop-types';
 
 
-export default function Weather( temp){
+export default function Weather({temp}){
     return (
     <View style={style.container}>
         <Text>
