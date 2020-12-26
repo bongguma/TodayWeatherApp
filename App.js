@@ -6,6 +6,7 @@ import Loading from './Screen/Loadng';
 
 import * as Location from 'expo-location';
 import axios from 'axios';
+import Weather from './Weather';
 
 
 const API_KEY = '971646f3a4af7308a4ac102f9e0317f4';
@@ -18,8 +19,11 @@ export default class extends React.Component {
   getWeather = async (latitude, longitude) => {
     console.log('getWeather');
     // ${ 변수 }는 template string 으로 자바스크립트 형식이다.
-    const { data } = await axios.get(`api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`);
+    // lat | lon - 현재 위치에 경도와 위도를 표현하고 있다.
+    // unit - 현재 날씨 온도를 나타낼 때 기준이 화씨인데 metric는 섭씨로 표현하고 있다.
+    const { data } = await axios.get(`api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&unit=metric`);
     console.log("data :: " + data);
+    this.setState({ isLoading:false, temp: data.main.temp })
   }
 
   getLocation = async () => {
@@ -47,7 +51,7 @@ export default class extends React.Component {
   render() {
     // isloading 여부에 따른 화면 보여주기
     const { isLoading } = this.state;
-    return isLoading ? <Loading /> : null;
+    return isLoading ? <Loading /> : <Weather temp={Math.round(temp)}/>;
   }
 }
 
