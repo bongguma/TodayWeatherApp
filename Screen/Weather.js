@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import PropType from 'prop-types';
 import { MaterialCommunityIcons} from '@expo/vector-icons'
 
-// 
+// https://openweathermap.org/weather-conditions  - weather-conditions 안에 1XX code로 나타내는 날씨가 없음으로 1은 제외.
 const WeatherGroup = {
     0: { icon: 'weather-sunny' },
     2: { icon: 'weather-lightning' },
@@ -23,6 +23,7 @@ export default function Weather({temp, condition, weatherName}){
             <MaterialCommunityIcons size={96} name={weather.icon}></MaterialCommunityIcons> 
             <Text style={style.weather}>{weatherName}</Text>  
             <Text style={style.temp}>{temp}°</Text>  
+            <Text style={style.temp}>{WeatherGroup[0]}°</Text>  
         </View>
         <View style={style.halfContainer}>
             
