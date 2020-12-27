@@ -56,7 +56,7 @@ getLocation = async () => {
     // isloading 여부에 따른 화면 보여주기
     const { isLoading, temp } = this.state;
     console.log("isLoading" + isLoading);
-    return isLoading ? <Loading /> : <Weather temp={Math.round(temp)}/>;
+    return isLoading ? <Loading /> : <Weather temp={Math.round(temp)} condition={condition}/>;
   }
 }
 
