@@ -54,7 +54,7 @@ getLocation = async () => {
   // 클래스 컴포넌트에서 반드시 구현돼야하는 유일한 메서드
   render() {
     // isloading 여부에 따른 화면 보여주기
-    const { isLoading, temp } = this.state;
+    const { isLoading, temp, condition } = this.state;
     console.log("isLoading" + isLoading);
     return isLoading ? <Loading /> : <Weather temp={Math.round(temp)} condition={condition}/>;
   }
