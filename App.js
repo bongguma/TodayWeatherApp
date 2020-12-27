@@ -25,7 +25,7 @@ getWeather = async (latitude, longitude) => {
     `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${API_KEY}&units=metric`
   );
   this.setState({
-    isLoading: false, condition: weather[0].main, temp
+    isLoading: false, condition: weather[0].id, weatherName: weather[0].main, temp
   });
 };
 
@@ -54,9 +54,9 @@ getLocation = async () => {
   // 클래스 컴포넌트에서 반드시 구현돼야하는 유일한 메서드
   render() {
     // isloading 여부에 따른 화면 보여주기
-    const { isLoading, temp, condition } = this.state;
+    const { isLoading, temp, condition, weatherName } = this.state;
     console.log("isLoading" + isLoading);
-    return isLoading ? <Loading /> : <Weather temp={Math.round(temp)} condition={condition}/>;
+    return isLoading ? <Loading /> : <Weather temp={Math.round(temp)} condition={condition} weatherName={weatherName}/>;
   }
 }
 
