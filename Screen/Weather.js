@@ -5,14 +5,16 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { MaterialCommunityIcons} from '@expo/vector-icons'
 
 // https://openweathermap.org/weather-conditions  - weather-conditions 안에 1XX code로 나타내는 날씨가 없음으로 1은 제외.
-// icon 스트링 값을 반환
+// icon 스트링 값을 반환 gradient 배열 값을 반환
+// icon은 날씨에 대한 이미지 gradient 그라데이션 색상 값
 const WeatherGroup = {
     0: { icon: 'weather-sunny' },
     2: { icon: 'weather-lightning' },
     3: { icon: 'weather-rainy' },
     5: { icon: 'weather-pouring' },
     6: { icon: 'weather-snowy' },
-    7: { icon: 'weather-fog' },
+    7: { icon: 'weather-fog',
+         gradient: ["#4DA0B0", "#D39D38"] },
     8: { icon: 'weather-cloudy' }
   }
 
@@ -23,7 +25,7 @@ export default function Weather({temp, condition, weatherName}){
     // <View style={style.container}>
         // LinearGradient - 그라데이션 레이아웃 태그
         <LinearGradient 
-            colors={["#4c669f","#3b5998", "#192f6a"]}
+            colors={weather.gradient}
             style={style.container}>
             {/* 디바이스에 대한 제일 큰 영역을 잡아주는 레이아웃 위가 아닌 그 안에다가 statusbar 태그를 사용해주는 이유는? */}
             <StatusBar barStyle="light-content"/>
