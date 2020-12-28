@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, StatusBar } from 'react-native';
 import PropType from 'prop-types';
+import { LinearGradient } from 'expo-linear-gradient'
 import { MaterialCommunityIcons} from '@expo/vector-icons'
 
 // https://openweathermap.org/weather-conditions  - weather-conditions 안에 1XX code로 나타내는 날씨가 없음으로 1은 제외.
+// icon 스트링 값을 반환
 const WeatherGroup = {
     0: { icon: 'weather-sunny' },
     2: { icon: 'weather-lightning' },
@@ -18,17 +20,23 @@ const WeatherGroup = {
 export default function Weather({temp, condition, weatherName}){
     const weather = condition === 800 ? WeatherGroup[0] : WeatherGroup[parseInt(condition / 100)];
     return (
-    <View style={style.container}>
-        <View style={style.halfContainer}>
-            <MaterialCommunityIcons size={96} name={weather.icon}></MaterialCommunityIcons> 
-            <Text style={style.weather}>{weatherName}</Text>  
-            <Text style={style.temp}>{temp}°</Text>  
-            <Text style={style.temp}>{WeatherGroup[0]}°</Text>  
-        </View>
-        <View style={style.halfContainer}>
-            
-        </View>
-    </View>
+    // <View style={style.container}>
+        // LinearGradient - 그라데이션 레이아웃 태그
+        <LinearGradient 
+            colors={["#4c669f","#3b5998", "#192f6a"]}
+            style={style.container}>
+            {/* 디바이스에 대한 제일 큰 영역을 잡아주는 레이아웃 위가 아닌 그 안에다가 statusbar 태그를 사용해주는 이유는? */}
+            <StatusBar barStyle="light-content"/>
+            <View style={style.halfContainer}>
+                <MaterialCommunityIcons size={96} name={weather.icon} color="white"></MaterialCommunityIcons> 
+                <Text style={style.weather}>{weatherName}</Text>  
+                <Text style={style.temp}>{temp}°</Text>  
+            </View>
+            <View style={style.halfContainer}>
+                
+            </View>
+            </LinearGradient>
+    // </View>
     );
 }
 
@@ -54,11 +62,13 @@ const style = StyleSheet.create({
     weather:{
         fontSize: 36,
         fontWeight: 'bold',
+        color: 'white',
         marginTop: 10
     },
 
     temp: {
         fontSize: 28,
+        color: 'white',
         marginTop: 5
     }
 })
