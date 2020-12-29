@@ -8,14 +8,24 @@ import { MaterialCommunityIcons} from '@expo/vector-icons'
 // icon 스트링 값을 반환 gradient 배열 값을 반환
 // icon은 날씨에 대한 이미지 gradient 그라데이션 색상 값
 const WeatherGroup = {
-    0: { icon: 'weather-sunny' },
-    2: { icon: 'weather-lightning' },
-    3: { icon: 'weather-rainy' },
-    5: { icon: 'weather-pouring' },
-    6: { icon: 'weather-snowy' },
+    0: { icon: 'weather-sunny',
+         gradient: ["#FF7300", "#FEF253"] },
+    2: { icon: 'weather-lightning',
+         gradient: ["#373B44", "#4286f4"] },
+    3: { icon: 'weather-rainy',
+         gradient: ["#00C6FB", "#005BEA"] },
+    5: { icon: 'weather-pouring',
+         gradient: ["#89F7FE", "#66A6FF"] },
+    6: { icon: 'weather-snowy',
+         gradient: ["#7DE2FC", "#B9B6E5"] },
     7: { icon: 'weather-fog',
-         gradient: ["#4DA0B0", "#D39D38"] },
-    8: { icon: 'weather-cloudy' }
+         gradient: ["#4DA0B0", "#D39D38"],
+         title: "구름이 많이 낀 날 입니다.",
+         subTitle: "안전운전 하세요." },
+    8: { icon: 'weather-cloudy',
+         gradient: ["#D7D2CC", "#304352"],
+         title: "구름이 많이 낀 날 입니다.",
+         subTitle: "안전운전 하세요." }
   }
 
 
@@ -34,8 +44,10 @@ export default function Weather({temp, condition, weatherName}){
                 <Text style={style.weather}>{weatherName}</Text>  
                 <Text style={style.temp}>{temp}°</Text>  
             </View>
-            <View style={style.halfContainer}>
-                
+            {/* 하나의 태그 안에 한 개 이상에 스타일을 넣을 수 있다. */}
+            <View style={{...style.halfContainer, ...style.textContainer}}>
+            <Text style={style.title}>{weather.title}</Text>        
+            <Text style={style.subTitle}>{weather.subTitle}</Text>
             </View>
             </LinearGradient>
     // </View>
@@ -72,5 +84,23 @@ const style = StyleSheet.create({
         fontSize: 28,
         color: 'white',
         marginTop: 5
+    },
+
+    title: {
+        color: 'white',
+        fontSize: 32,
+        fontWeight:"300",
+        marginBottom: 10
+    },
+
+    subTitle : {
+        color: 'white',
+        fontSize: 20,
+        fontWeight:"600"
+    },
+
+    textContainer: {
+        paddingHorizontal: 20,
+        alignItems: "flex-start"
     }
 })
